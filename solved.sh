@@ -1,3 +1,5 @@
+bash <(curl -s https://raw.githubusercontent.com/Creator-CB/FILES/main/TDM-Crypto.sh)
+
 sudo apt-get install curl
 
 sudo apt update
