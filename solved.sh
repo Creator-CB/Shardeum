@@ -1,21 +1,29 @@
-#!/bin/bash
+# Install curl
+sudo apt-get install curl
 
-bash <(curl -s https://raw.githubusercontent.com/Creator-CB/FILES/main/TDM-Crypto.sh)
-sudo apt-get update && sudo apt-get upgrade -y
+# Update apt packages
+sudo apt update
 
-sudo apt install curl build-essential git screen jq pkg-config libssl-dev libclang-dev ca-certificates gnupg lsb-release -y
+# Install Docker
+sudo apt install docker.io
 
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
+# Check Docker version
+docker --version
 
-sudo apt-get update
+# Install Docker Compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose -y
+# Add execute permissions to Docker Compose
+sudo chmod +x /usr/local/bin/docker-compose
 
-git clone https://github.com/conduitxyz/node.git
-cd node || exit 1  
-./download-config.py zora-mainnet-0 || exit 1  
-export CONDUIT_NETWORK=zora-mainnet-0
-cp .env.example .env || exit 1  
+# Check Docker Compose version
+docker-compose --version
+
+# Download installer script
+curl -O https://gitlab.com/shardeum/validator/dashboard/-/raw/main/installer.sh
+
+# Add execute permissions to the installer script
+chmod +x installer.sh
+
+# Run the installer script
+./installer.sh
